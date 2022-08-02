@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:shop/models/product.dart';
+import 'package:shop/routes/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
 
   const ProductItem(this.product, {Key? key}) : super(key: key);
+
+  _navigateToProductItem(context) {
+    Navigator.of(context).pushNamed(
+      AppRoutes.productDetails,
+      arguments: product,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +34,9 @@ class ProductItem extends StatelessWidget {
             icon: const Icon(Icons.shopping_cart),
           ),
         ),
-        child: Image.network(product.imageUrl, fit: BoxFit.cover),
+        child: GestureDetector(
+            onTap: () => _navigateToProductItem(context),
+            child: Image.network(product.imageUrl, fit: BoxFit.cover)),
       ),
     );
   }
